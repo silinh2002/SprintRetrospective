@@ -18,12 +18,13 @@ module.exports = {
 
   postCreate: async function (req, res, next) {
     try {
+      let pw = md5(req.body.password);
       let entity = {
-        phone: req.body.phone || "",
-        name: req.body.name || "",
-        email: req.body.email || "",
-        password: req.body.password || "",
-        avatar: req.body.avatar || "",
+        phone: req.body.phone || undefined,
+        name: req.body.name || undefined,
+        email: req.body.email || undefined,
+        password: pw || undefined,
+        avatar: req.body.avatar || undefined,
         updated_at: moment().now(),
         isDeleted: false,
       };
@@ -40,12 +41,13 @@ module.exports = {
   patchUpdate: async function (req, res, next) {
     try {
       let id = req.params.id;
+      let pw = md5(req.body.password);
       let entity = {
-        phone: req.body.phone || "",
-        name: req.body.name || "",
-        email: req.body.email || "",
-        password: req.body.password || "",
-        avatar: req.body.avatar || "",
+        phone: req.body.phone || undefined,
+        name: req.body.name || undefined,
+        email: req.body.email || undefined,
+        password: pw || undefined,
+        avatar: req.body.avatar || undefined,
         updated_at: moment().now(),
         isDeleted: false,
       };

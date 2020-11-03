@@ -30,7 +30,7 @@ module.exports = {
   postCreate: async function (req, res, next) {
     try {
       let entity = {
-        name: req.body.name || "",
+        name: req.body.name || undefined,
         column_id_array: req.body.column_id_array || [],
         updated_at: moment().now(),
         isDeleted: false,
@@ -49,7 +49,7 @@ module.exports = {
     try {
       let id = req.params.id;
       let entity = {
-        name: req.body.name || "",
+        name: req.body.name || undefined,
         column_id_array: req.body.column_id_array || [],
         updated_at: moment().now(),
         isDeleted: false,

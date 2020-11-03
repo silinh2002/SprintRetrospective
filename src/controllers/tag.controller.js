@@ -30,8 +30,8 @@ module.exports = {
   postCreate: async function (req, res, next) {
     try {
       let entity = {
-        name: req.body.name || "",
-        description: req.body.description || "",
+        name: req.body.name || undefined,
+        description: req.body.description || undefined,
         member_id_array: req.body.member_id_array || [],
         updated_at: moment().now(),
         isDeleted: false,
@@ -50,8 +50,8 @@ module.exports = {
     try {
       let id = req.params.id;
       let entity = {
-        name: req.body.name || "",
-        description: req.body.description || "",
+        name: req.body.name || undefined,
+        description: req.body.description || undefined,
         member_id_array: req.body.member_id_array || [],
         updated_at: moment().now(),
         isDeleted: false,
