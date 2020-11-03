@@ -38,7 +38,10 @@ module.exports = {
       let result = await board.createByLambda(entity);
       res.json(resSuccess({ data: result }));
     } catch (error) {
-      res.json(resFail({ data: error }));
+      data = {
+        message: error.message,
+      };
+      res.json(resFail({ data: data }));
     }
   },
 
@@ -57,7 +60,10 @@ module.exports = {
       let result = await board.updateByLambda({ _id: id }, entityLast);
       res.json(resSuccess({ data: result }));
     } catch (error) {
-      next(error);
+      data = {
+        message: error.message,
+      };
+      res.json(resFail({ data: data }));
     }
   },
 
@@ -70,7 +76,10 @@ module.exports = {
       let result = await board.updateByLambda({ _id: id }, entity);
       res.json(resSuccess({ data: result }));
     } catch (error) {
-      next(error);
+      data = {
+        message: error.message,
+      };
+      res.json(resFail({ data: data }));
     }
   },
 };
