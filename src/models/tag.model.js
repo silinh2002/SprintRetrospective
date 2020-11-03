@@ -17,6 +17,25 @@ module.exports = {
   findByLambda: async function (lambda) {
     return await Tag.find(lambda);
   },
+  findByLambda_Detail: async function (lambda) {
+    console.log("lambda: " + JSON.stringify(lambda));
+    if (lambda == undefined) {
+      lambda = {};
+    }
+    return await Tag.aggregate([
+      {
+        $match: lambda,
+      },
+      {
+        $lookup: {
+          from: "users",
+          localField: "member_id_array",
+          foreignField: "_id",
+          as: "users",
+        },
+      },
+    ]);
+  },
   createByLambda: async function (lambda) {
     return await Tag.insertMany(lambda);
   },

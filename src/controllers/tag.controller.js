@@ -1,4 +1,4 @@
-let column = require("../models/column.model");
+let tag = require("../models/tag.model");
 const resSuccess = require("../response/res-success");
 const resFail = require("../response/res-fail");
 const { omitBy, isNil } = require("lodash");
@@ -6,15 +6,15 @@ const moment = require("moment");
 const mongodb = require("mongodb");
 
 module.exports = {
-  listColumn: async function (req, res, next) {
-    let data = await column.findByLambda_Detail();
+  listTag: async function (req, res, next) {
+    let data = await tag.findByLambda_Detail();
     res.json(resSuccess({ data: data }));
   },
 
   findById: async function (req, res) {
     try {
       let id = req.params.id;
-      let data = await column.findByLambda_Detail({
+      let data = await tag.findByLambda_Detail({
         _id: mongodb.ObjectID(id),
       });
       res.json(resSuccess({ data: data[0] }));
@@ -32,11 +32,11 @@ module.exports = {
       let entity = {
         name: req.body.name || "",
         description: req.body.description || "",
-        tag_id_array: req.body.tag_id_array || [],
+        member_id_array: req.body.member_id_array || [],
         updated_at: moment().now(),
         isDeleted: false,
       };
-      let result = await column.createByLambda(entity);
+      let result = await tag.createByLambda(entity);
       res.json(resSuccess({ data: result }));
     } catch (error) {
       res.json(resFail({ data: error }));
@@ -49,14 +49,14 @@ module.exports = {
       let entity = {
         name: req.body.name || "",
         description: req.body.description || "",
-        tag_id_array: req.body.tag_id_array || [],
+        member_id_array: req.body.member_id_array || [],
         updated_at: moment().now(),
         isDeleted: false,
       };
 
       let entityLast = omitBy(entity, isNil);
 
-      let result = await column.updateByLambda({ _id: id }, entityLast);
+      let result = await tag.updateByLambda({ _id: id }, entityLast);
       res.json(resSuccess({ data: result }));
     } catch (error) {
       next(error);
@@ -69,7 +69,7 @@ module.exports = {
       let entity = {
         isDeleted: true,
       };
-      let result = await column.updateByLambda({ _id: id }, entity);
+      let result = await tag.updateByLambda({ _id: id }, entity);
       res.json(resSuccess({ data: result }));
     } catch (error) {
       next(error);

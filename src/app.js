@@ -20,6 +20,7 @@ app.get("/", (req, res) => {
 
 app.use("/board", require("./routes/board.router"));
 app.use("/column", require("./routes/column.router"));
+app.use("/tag", require("./routes/tag.router"));
 app.use("/user", require("./routes/user.router"));
 
 const startSever = async () => {
