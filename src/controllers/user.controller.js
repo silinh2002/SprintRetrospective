@@ -1,41 +1,33 @@
-let board = require("../models/board.model");
+let user = require("../models/user.model");
 const resSuccess = require("../response/res-success");
 const resFail = require("../response/res-fail");
 const { omitBy, isNil } = require("lodash");
 const moment = require("moment");
-const mongodb = require("mongodb");
 
 module.exports = {
-  listBoard: async function (req, res, next) {
-    let data = await board.findByLambda_Detail();
+  listUser: async function (req, res, next) {
+    let data = await user.findByLambda();
     res.json(resSuccess({ data: data }));
   },
 
   findById: async function (req, res) {
-    try {
-      let id = req.params.id;
-      let data = await board.findByLambda_Detail({
-        _id: mongodb.ObjectID(id),
-      });
-      res.json(resSuccess({ data: data[0] }));
-    } catch (error) {
-      console.log("error.message: " + error.message);
-      data = {
-        message: error.message,
-      };
-      res.json(resFail({ data: data }));
-    }
+    let id = req.params.id;
+    let data = await user.findByLambda({ _id: id });
+    res.json(resSuccess({ data: data[0] }));
   },
 
   postCreate: async function (req, res, next) {
     try {
       let entity = {
+        phone: req.body.phone || "",
         name: req.body.name || "",
-        column_id_array: req.body.column_id_array || [],
+        email: req.body.email || "",
+        password: req.body.password || "",
+        avatar: req.body.avatar || "",
         updated_at: moment().now(),
         isDeleted: false,
       };
-      let result = await board.createByLambda(entity);
+      let result = await user.createByLambda(entity);
       res.json(resSuccess({ data: result }));
     } catch (error) {
       res.json(resFail({ data: error }));
@@ -46,15 +38,18 @@ module.exports = {
     try {
       let id = req.params.id;
       let entity = {
+        phone: req.body.phone || "",
         name: req.body.name || "",
-        column_id_array: req.body.column_id_array || [],
+        email: req.body.email || "",
+        password: req.body.password || "",
+        avatar: req.body.avatar || "",
         updated_at: moment().now(),
         isDeleted: false,
       };
 
       let entityLast = omitBy(entity, isNil);
 
-      let result = await board.updateByLambda({ _id: id }, entityLast);
+      let result = await user.updateByLambda({ _id: id }, entityLast);
       res.json(resSuccess({ data: result }));
     } catch (error) {
       next(error);
@@ -67,7 +62,7 @@ module.exports = {
       let entity = {
         isDeleted: true,
       };
-      let result = await board.updateByLambda({ _id: id }, entity);
+      let result = await user.updateByLambda({ _id: id }, entity);
       res.json(resSuccess({ data: result }));
     } catch (error) {
       next(error);

@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const controller = require("../controllers/board.controller");
+const controller = require("../controllers/user.controller");
 
-router.get("/", controller.listBoard);
+router.get("/", controller.listUser);
 router.post("/", controller.postCreate);
 
 router.get("/:id", controller.findById);

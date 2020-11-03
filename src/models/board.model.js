@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-let boardsSchema = new mongoose.Schema(
+let boardSchema = new mongoose.Schema(
   {
     name: String,
     column_id_array: [require("mongodb").ObjectID],
@@ -10,17 +10,21 @@ let boardsSchema = new mongoose.Schema(
   { versionKey: false }
 );
 
-let Board = mongoose.model("Board", boardsSchema, "boards");
+let Board = mongoose.model("Board", boardSchema, "boards");
 
 module.exports = {
   findByLambda: async function (lambda) {
     return await Board.find(lambda);
   },
   findByLambda_Detail: async function (lambda) {
+    console.log("lambda: " + JSON.stringify(lambda));
+    if (lambda == undefined) {
+      lambda = {};
+    }
     return await Board.aggregate([
-      // {
-      //   $match: lambda,
-      // },
+      {
+        $match: lambda,
+      },
       {
         $lookup: {
           from: "columns",

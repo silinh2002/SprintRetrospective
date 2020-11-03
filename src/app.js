@@ -19,6 +19,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/board", require("./routes/board.router"));
+app.use("/user", require("./routes/user.router"));
 
 const startSever = async () => {
   app.listen(port, async () => {
