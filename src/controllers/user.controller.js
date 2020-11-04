@@ -3,6 +3,7 @@ const resSuccess = require("../response/res-success");
 const resFail = require("../response/res-fail");
 const { omitBy, isNil } = require("lodash");
 const moment = require("moment");
+var md5 = require("md5");
 
 module.exports = {
   listUser: async function (req, res, next) {
