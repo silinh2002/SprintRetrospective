@@ -32,7 +32,7 @@ module.exports = {
       let entity = {
         name: req.body.name || undefined,
         column_id_array: req.body.column_id_array || [],
-        updated_at: moment().now(),
+        updated_at: moment().now,
         isDeleted: false,
       };
       let result = await board.createByLambda(entity);
@@ -51,7 +51,7 @@ module.exports = {
       let entity = {
         name: req.body.name || undefined,
         column_id_array: req.body.column_id_array || [],
-        updated_at: moment().now(),
+        updated_at: moment().now,
         isDeleted: false,
       };
 

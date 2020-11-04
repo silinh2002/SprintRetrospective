@@ -33,7 +33,7 @@ module.exports = {
         name: req.body.name || undefined,
         description: req.body.description || undefined,
         member_id_array: req.body.member_id_array || [],
-        updated_at: moment().now(),
+        updated_at: moment().now,
         isDeleted: false,
       };
       let result = await tag.createByLambda(entity);
@@ -53,7 +53,7 @@ module.exports = {
         name: req.body.name || undefined,
         description: req.body.description || undefined,
         member_id_array: req.body.member_id_array || [],
-        updated_at: moment().now(),
+        updated_at: moment().now,
         isDeleted: false,
       };
 

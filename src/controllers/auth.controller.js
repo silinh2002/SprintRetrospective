@@ -2,6 +2,7 @@ var User = require("../models/user.model");
 var md5 = require("md5");
 const resSuccess = require("../response/res-success");
 const resFail = require("../response/res-fail");
+const moment = require("moment");
 
 module.exports = {
   login: function (req, res) {
@@ -31,5 +32,43 @@ module.exports = {
       signed: true,
     });
     res.json(resSuccess({ data: user[0] }));
+  },
+
+  postRegister: async function (req, res, next) {
+    try {
+      let pw = md5(req.body.password);
+      let entity = {
+        phone: req.body.phone || undefined,
+        name: req.body.name || undefined,
+        email: req.body.email || undefined,
+        password: pw || undefined,
+        avatar: req.body.avatar || undefined,
+        updated_at: moment().now,
+        isDeleted: false,
+      };
+      let result = await User.createByLambda(entity);
+      res.json(resSuccess({ data: result }));
+    } catch (error) {
+      data = {
+        message: error.message,
+      };
+      res.json(resFail({ data: data }));
+    }
+  },
+
+  postSignOut: async function (req, res) {
+    res.cookie(
+      "userId",
+      "",
+      {
+        signed: true,
+      },
+      { maxAge: 0 }
+    );
+
+    data = {
+      message: "Successfully clear cookie",
+    };
+    res.json(resSuccess({ data: data }));
   },
 };
