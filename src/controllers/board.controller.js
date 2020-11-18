@@ -7,7 +7,7 @@ const mongodb = require("mongodb");
 
 module.exports = {
   listBoard: async function (req, res, next) {
-    let data = await board.findByLambda_Detail();
+    let data = await board.findByLambda();
     res.json(resSuccess({ data: data }));
   },
 
@@ -33,7 +33,7 @@ module.exports = {
         name: req.body.name || undefined,
         column_id_array: req.body.column_id_array || [],
         updated_at: moment().now,
-        isDeleted: false,
+        is_deleted: false,
       };
       let result = await board.createByLambda(entity);
       res.json(resSuccess({ data: result }));
@@ -52,7 +52,7 @@ module.exports = {
         name: req.body.name || undefined,
         column_id_array: req.body.column_id_array || [],
         updated_at: moment().now,
-        isDeleted: false,
+        is_deleted: false,
       };
 
       let entityLast = omitBy(entity, isNil);
@@ -69,9 +69,9 @@ module.exports = {
 
   delete: async function (req, res) {
     try {
-      let id = req.params.id;
+      let id = req.params.id || "";
       let entity = {
-        isDeleted: true,
+        is_deleted: true,
       };
       let result = await board.updateByLambda({ _id: id }, entity);
       res.json(resSuccess({ data: result }));

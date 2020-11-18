@@ -12,7 +12,7 @@ module.exports = {
     var email = req.body.email;
     var password = req.body.password;
     var user = await User.findByLambda({ email: email });
-    if (user.length == 0 || user[0].isDeleted == true) {
+    if (user.length == 0 || user[0].is_deleted == true) {
       data = {
         message: "User is not exist",
       };
@@ -44,7 +44,7 @@ module.exports = {
         password: pw || undefined,
         avatar: req.body.avatar || undefined,
         updated_at: moment().now,
-        isDeleted: false,
+        is_deleted: false,
       };
       let result = await User.createByLambda(entity);
       res.json(resSuccess({ data: result }));

@@ -27,7 +27,7 @@ module.exports = {
         password: pw || undefined,
         avatar: req.body.avatar || undefined,
         updated_at: moment().now,
-        isDeleted: false,
+        is_deleted: false,
       };
       let result = await user.createByLambda(entity);
       res.json(resSuccess({ data: result }));
@@ -50,7 +50,7 @@ module.exports = {
         password: pw || undefined,
         avatar: req.body.avatar || undefined,
         updated_at: moment().now,
-        isDeleted: false,
+        is_deleted: false,
       };
 
       let entityLast = omitBy(entity, isNil);
@@ -69,7 +69,7 @@ module.exports = {
     try {
       let id = req.params.id;
       let entity = {
-        isDeleted: true,
+        is_deleted: true,
       };
       let result = await user.updateByLambda({ _id: id }, entity);
       res.json(resSuccess({ data: result }));

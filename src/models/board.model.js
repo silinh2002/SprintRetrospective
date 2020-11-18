@@ -14,6 +14,7 @@ let Board = mongoose.model("Board", boardSchema, "boards");
 
 module.exports = {
   findByLambda: async function (lambda) {
+    lambda = { ...lambda, is_deleted: false };
     return await Board.find(lambda);
   },
   findByLambda_Detail: async function (lambda) {
@@ -21,6 +22,7 @@ module.exports = {
     if (lambda == undefined) {
       lambda = {};
     }
+    lambda = { ...lambda, is_deleted: false };
     return await Board.aggregate([
       {
         $match: lambda,

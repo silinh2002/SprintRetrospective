@@ -34,7 +34,7 @@ module.exports = {
         description: req.body.description || undefined,
         tag_id_array: req.body.tag_id_array || [],
         updated_at: moment().now,
-        isDeleted: false,
+        is_deleted: false,
       };
       let result = await column.createByLambda(entity);
       res.json(resSuccess({ data: result }));
@@ -54,7 +54,7 @@ module.exports = {
         description: req.body.description || undefined,
         tag_id_array: req.body.tag_id_array || [],
         updated_at: moment().now,
-        isDeleted: false,
+        is_deleted: false,
       };
 
       let entityLast = omitBy(entity, isNil);
@@ -73,7 +73,7 @@ module.exports = {
     try {
       let id = req.params.id;
       let entity = {
-        isDeleted: true,
+        is_deleted: true,
       };
       let result = await column.updateByLambda({ _id: id }, entity);
       res.json(resSuccess({ data: result }));

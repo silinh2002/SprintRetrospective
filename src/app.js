@@ -27,10 +27,10 @@ app.get("/", (req, res) => {
   res.json("hello world");
 });
 
-app.use("/board", authMiddleware.requireAuth, boardRoutes);
-app.use("/column", authMiddleware.requireAuth, columnRoutes);
-app.use("/tag", authMiddleware.requireAuth, tagRoutes);
-app.use("/user", authMiddleware.requireAuth, userRoutes);
+app.use("/board", boardRoutes);
+app.use("/column", columnRoutes);
+app.use("/tag", tagRoutes);
+app.use("/user", userRoutes);
 app.use("/auth", authRoutes);
 
 const startSever = async () => {

@@ -15,6 +15,7 @@ let Column = mongoose.model("Column", columnSchema, "columns");
 
 module.exports = {
   findByLambda: async function (lambda) {
+    lambda.is_deleted = false;
     return await Column.find(lambda);
   },
   findByLambda_Detail: async function (lambda) {
@@ -22,6 +23,7 @@ module.exports = {
     if (lambda == undefined) {
       lambda = {};
     }
+    lambda.is_deleted = false;
     return await Column.aggregate([
       {
         $match: lambda,

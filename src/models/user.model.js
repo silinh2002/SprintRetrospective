@@ -17,6 +17,7 @@ let User = mongoose.model("User", userSchema, "users");
 
 module.exports = {
   findByLambda: async function (lambda) {
+    lambda.is_deleted = false;
     return await User.find(lambda);
   },
   createByLambda: async function (lambda) {
